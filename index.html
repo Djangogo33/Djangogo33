@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV — Djangogo33</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #07080f;
+            --sidebar: #0c0d1a;
+            --card: rgba(255,255,255,0.04);
+            --card-hover: rgba(255,255,255,0.07);
+            --border: rgba(108, 92, 231, 0.18);
+            --accent: #6c5ce7;
+            --accent2: #00cec9;
+            --accent3: #fd79a8;
+            --text: #e4e4f0;
+            --muted: #7878a0;
+            --faint: rgba(255,255,255,0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+            /* ── NOISE OVERLAY ── */
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+                pointer-events: none;
+                z-index: 0;
+                opacity: 0.4;
+            }
+
+        .wrapper {
+            max-width: 1020px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 80px rgba(108,92,231,0.12), 0 0 0 1px var(--border);
+            background: var(--bg);
+        }
+
+        /* ── HEADER ── */
+        header {
+            padding: 40px 44px 32px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d0e1f 0%, #0a0b17 60%, #0f0a1e 100%);
+        }
+
+            header::after {
+                content: '';
+                position: absolute;
+                top: -60px;
+                right: -60px;
+                width: 320px;
+                height: 320px;
+                background: radial-gradient(circle, rgba(108,92,231,0.15) 0%, transparent 70%);
+                pointer-events: none;
+            }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+            .avatar-wrap::before {
+                content: '';
+                position: absolute;
+                inset: -3px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--accent), var(--accent2));
+                z-index: 0;
+            }
+
+            .avatar-wrap img {
+                width: 82px;
+                height: 82px;
+                border-radius: 50%;
+                display: block;
+                position: relative;
+                z-index: 1;
+                border: 3px solid var(--bg);
+            }
+
+        .header-text {
+            flex: 1;
+        }
+
+        .name {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.05;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+            .name .placeholder {
+                color: var(--accent);
+                font-style: italic;
+                font-weight: 600;
+                font-size: 1.8rem;
+                opacity: 0.7;
+            }
+
+        .title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+            .contacts a, .contacts span {
+                color: var(--muted);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                transition: color .2s;
+            }
+
+                .contacts a:hover {
+                    color: var(--accent2);
+                }
+
+            .contacts .dot {
+                color: var(--border);
+            }
+
+        /* ── BODY GRID ── */
+        .body {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+        }
+
+        /* ── SIDEBAR ── */
+        aside {
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            padding: 30px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .s-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            padding-bottom: 7px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bio-text {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .stat {
+            background: var(--faint);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .stat-n {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-l {
+            font-size: 0.67rem;
+            color: var(--muted);
+            margin-top: 3px;
+            line-height: 1.3;
+        }
+
+        /* SKILLS */
+        .skill-group {
+            margin-bottom: 10px;
+        }
+
+        .skill-cat {
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--muted);
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .skill-tag {
+            background: var(--faint);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 7px;
+            font-size: 0.7rem;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* LANGS */
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 7px;
+            font-size: 0.8rem;
+        }
+
+        .lang-flag {
+            font-size: 1.1rem;
+        }
+
+        .lang-name {
+            color: var(--text);
+        }
+
+        .lang-level {
+            color: var(--muted);
+            font-size: 0.72rem;
+            margin-left: auto;
+        }
+
+        /* INTERESTS */
+        .interest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .interest-tag {
+            background: linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,206,201,0.08));
+            border: 1px solid rgba(108,92,231,0.25);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 0.72rem;
+            color: var(--text);
+        }
+
+        /* ── MAIN ── */
+        main {
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .section-title::after {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: var(--border);
+            }
+
+        /* PARCOURS */
+        .parcours-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .parcours-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 4px;
+        }
+
+        .parcours-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .parcours-line-v {
+            width: 1px;
+            flex: 1;
+            background: var(--border);
+            margin-top: 5px;
+        }
+
+        .parcours-content {
+            flex: 1;
+            padding-bottom: 4px;
+        }
+
+        .parcours-role {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .parcours-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .parcours-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 15px;
+            transition: background .2s, border-color .2s, transform .2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .project-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 3px;
+                height: 100%;
+                background: linear-gradient(180deg, var(--accent), var(--accent2));
+                border-radius: 10px 0 0 10px;
+            }
+
+            .project-card:hover {
+                background: var(--card-hover);
+                border-color: rgba(108,92,231,0.35);
+                transform: translateY(-2px);
+            }
+
+        .project-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .project-name {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: #fff;
+        }
+
+        .status-badge {
+            font-size: 0.62rem;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .status-live {
+            background: rgba(0,206,163,0.15);
+            color: #00cec9;
+            border: 1px solid rgba(0,206,163,0.3);
+        }
+
+        .status-beta {
+            background: rgba(253,121,168,0.15);
+            color: #fd79a8;
+            border: 1px solid rgba(253,121,168,0.3);
+        }
+
+        .status-ext {
+            background: rgba(108,92,231,0.15);
+            color: #a29bfe;
+            border: 1px solid rgba(108,92,231,0.3);
+        }
+
+        .project-desc {
+            font-size: 0.77rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .project-url {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--accent2);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            opacity: 0.8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+            .project-url:hover {
+                opacity: 1;
+            }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 3px;
+            padding: 1px 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--muted);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            animation: fadeUp .5s ease both;
+        }
+
+        aside {
+            animation: fadeUp .5s .1s ease both;
+        }
+
+        main {
+            animation: fadeUp .5s .2s ease both;
+        }
+
+        /* PRINT */
+        @media print {
+            body {
+                background: #fff;
+                color: #111;
+            }
+
+            .wrapper {
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            header {
+                background: #0d0e1f !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .project-card:hover {
+                transform: none;
+            }
+
+            body::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .body {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- HEADER -->
+        <header>
+            <div class="header-inner">
+                <div class="avatar-wrap">
+                    <img src="https://avatars.githubusercontent.com/u/242775372?v=4" alt="Djangogo33">
+                </div>
+                <div class="header-text">
+                    <div class="name">
+                        <span class="placeholder">[ Ton Prénom Nom ]</span>
+                    </div>
+                    <div class="title">⚡ Indie Maker &amp; Developer</div>
+                    <div class="contacts">
+                        <span>📍 Marseille, France</span>
+                        <span class="dot">·</span>
+                        <a href="mailto:[email]">✉️ [email]</a>
+                        <span class="dot">·</span>
+                        <a href="https://github.com/Djangogo33" target="_blank">🐙 github.com/Djangogo33</a>
+                        <span class="dot">·</span>
+                        <a href="https://djangogo33.github.io/about-me/" target="_blank">🌐 Portfolio</a>
+                        <span class="dot">·</span>
+                        <a href="#">💼 [LinkedIn]</a>
+                        <span class="dot">·</span>
+                        <a href="#">[Réseau +]</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="body">
+
+            <!-- SIDEBAR -->
+            <aside>
+
+                <!-- À PROPOS -->
+                <div>
+                    <div class="s-title">À propos</div>
+                    <p class="bio-text">
+                        Développeur autodidacte français, je conçois et lance des produits digitaux en solo depuis ~2 ans : SaaS, extensions Chrome, outils web et apps IA.<br><br>
+                        Ma philosophie : partir d'une idée, shipper vite, itérer sans relâche. Toujours en build. Open source &amp; communauté makers.
+                    </p>
+                </div>
+
+                <!-- STATS -->
+                <div>
+                    <div class="s-title">Chiffres</div>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat-n">8+</div>
+                            <div class="stat-l">Projets lancés</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-n">5</div>
+                            <div class="stat-l">SaaS / apps live</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-n">2</div>
+                            <div class="stat-l">Extensions Chrome</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-n">50+</div>
+                            <div class="stat-l">Tutoriels publiés</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMPÉTENCES -->
+                <div>
+                    <div class="s-title">Compétences</div>
+                    <div class="skill-group">
+                        <div class="skill-cat">Frontend</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Next.js</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-cat">Backend & Infra</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Supabase</span>
+                            <span class="skill-tag">Vercel</span>
+                            <span class="skill-tag">GitHub Pages</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-cat">Extensions</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Chrome MV3</span>
+                            <span class="skill-tag">Service Workers</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-cat">Monétisation</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Stripe</span>
+                            <span class="skill-tag">SaaS</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-cat">AI Dev</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Lovable</span>
+                            <span class="skill-tag">Emergent</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LANGUES -->
+                <div>
+                    <div class="s-title">Langues</div>
+                    <div class="lang-item">
+                        <span class="lang-flag">🇫🇷</span>
+                        <span class="lang-name">Français</span>
+                        <span class="lang-level">Natif</span>
+                    </div>
+                    <div class="lang-item">
+                        <span class="lang-flag">🇬🇧</span>
+                        <span class="lang-name">Anglais</span>
+                        <span class="lang-level">Professionnel</span>
+                    </div>
+                </div>
+
+                <!-- INTÉRÊTS -->
+                <div>
+                    <div class="s-title">Intérêts</div>
+                    <div class="interest-tags">
+                        <span class="interest-tag">Indie Making</span>
+                        <span class="interest-tag">IA &amp; Automatisation</span>
+                        <span class="interest-tag">Game Dev</span>
+                        <span class="interest-tag">Productivité</span>
+                        <span class="interest-tag">Open Source</span>
+                        <span class="interest-tag">SaaS</span>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- MAIN -->
+            <main>
+
+                <!-- PARCOURS -->
+                <section>
+                    <div class="section-title">Parcours</div>
+                    <div class="parcours-item">
+                        <div class="parcours-line">
+                            <div class="parcours-dot"></div>
+                            <div class="parcours-line-v"></div>
+                        </div>
+                        <div class="parcours-content">
+                            <div class="parcours-role">Développeur Indépendant · Indie Maker</div>
+                            <div class="parcours-date">2023 — Aujourd'hui · Marseille, France</div>
+                            <div class="parcours-desc">
+                                Conception, développement et lancement de produits digitaux en solo — SaaS, extensions Chrome, outils web et applications IA. De l'idée au déploiement, en passant par le design, le code, la monétisation et le marketing. Co-fondateur d'une communauté makers active sur Discord &amp; WhatsApp.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PROJETS -->
+                <section>
+                    <div class="section-title">Projets</div>
+                    <div class="projects-grid">
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">ReviewDrop</span>
+                                <span class="status-badge status-beta">Beta Live</span>
+                            </div>
+                            <div class="project-desc">Widget de feedback visuel SaaS — embarquable sur n'importe quel site. Screenshots annotés, gestion d'équipe, dashboard.</div>
+                            <a class="project-url" href="https://reviewdrop.lovable.app/" target="_blank">→ reviewdrop.lovable.app</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Supabase</span>
+                                <span class="tech-tag">Vercel</span>
+                                <span class="tech-tag">Lovable</span>
+                                <span class="tech-tag">Stripe</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">AITools Pro</span>
+                                <span class="status-badge status-ext">Chrome Ext.</span>
+                            </div>
+                            <div class="project-desc">Extension Chrome MV3 tout-en-un — recherche boostée, dark mode universel, Pomodoro, bloqueur de pubs, notes persistantes.</div>
+                            <a class="project-url" href="https://github.com/Djangogo33/AITools" target="_blank">→ github.com/Djangogo33/AITools</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Chrome MV3</span>
+                                <span class="tech-tag">Chrome API</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">TutoFacile</span>
+                                <span class="status-badge status-live">Live</span>
+                            </div>
+                            <div class="project-desc">Plateforme collaborative de tutoriels gratuits — 50+ guides en bricolage, cuisine, code, jardinage. Auth complète, dark mode, multilingue.</div>
+                            <a class="project-url" href="https://djangogo33.github.io/optitools/" target="_blank">→ djangogo33.github.io/optitools</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">WidgetVoice</span>
+                                <span class="status-badge status-live">Live</span>
+                            </div>
+                            <div class="project-desc">SaaS widget embarquable : changelog de mises à jour + votes de fonctionnalités + feedback contextuel utilisateurs.</div>
+                            <a class="project-url" href="https://widget-voice.lovable.app/" target="_blank">→ widget-voice.lovable.app</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Lovable</span>
+                                <span class="tech-tag">Supabase</span>
+                                <span class="tech-tag">Vercel</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">Wealthia</span>
+                                <span class="status-badge status-live">Live</span>
+                            </div>
+                            <div class="project-desc">Application de gestion de patrimoine boostée à l'IA — suivi d'actifs, analyses intelligentes et recommandations personnalisées.</div>
+                            <a class="project-url" href="https://wealthia.lovable.app/" target="_blank">→ wealthia.lovable.app</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Next.js</span>
+                                <span class="tech-tag">IA</span>
+                                <span class="tech-tag">Lovable</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">CalcStudy</span>
+                                <span class="status-badge status-live">Live</span>
+                            </div>
+                            <div class="project-desc">Calculatrice en ligne rapide avec historique local des 20 derniers calculs et raccourcis clavier.</div>
+                            <a class="project-url" href="https://djangogo33.github.io/calc-study/" target="_blank">→ djangogo33.github.io/calc-study</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">localStorage</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">NewTab</span>
+                                <span class="status-badge status-ext">Chrome Ext.</span>
+                            </div>
+                            <div class="project-desc">Extension Chrome pour personnaliser son nouvel onglet et choisir librement son moteur de recherche favori.</div>
+                            <a class="project-url" href="https://github.com/Djangogo33/newtab" target="_blank">→ github.com/Djangogo33/newtab</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Chrome MV3</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-top">
+                                <span class="project-name">L'Univers de Djangogo</span>
+                                <span class="status-badge status-live">Hub Live</span>
+                            </div>
+                            <div class="project-desc">Site vitrine et hub personnel regroupant tous mes projets open source, mon parcours et mes contacts.</div>
+                            <a class="project-url" href="https://djangogo33.github.io/about-me/" target="_blank">→ djangogo33.github.io/about-me</a>
+                            <div class="tech-tags">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JS</span>
+                                <span class="tech-tag">GitHub Pages</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+</body>
+</html>
